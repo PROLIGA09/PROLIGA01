@@ -1,0 +1,83 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,system-ui,sans-serif}
+body{
+  background:radial-gradient(circle at top,#2b0a4d,#060010);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
+/* LAYOUT */
+.wrapper{
+  width:95%;
+  max-width:1100px;
+  display:flex;
+  gap:40px;
+  align-items:center;
+  justify-content:space-between;
+}
+/* LOGO */
+.left{flex:1}
+.logo{
+  font-size:72px;
+  font-weight:900;
+  line-height:1;
+}
+.logo .pro{
+  display:block;
+  background:linear-gradient(90deg,#22d3ee,#3b82f6);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.logo .liga{
+  display:block;
+  background:linear-gradient(90deg,#8b5cf6,#ec4899);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.subtitle{margin-top:16px;color:#cbd5f5}
+/* FORM */
+.card{
+  max-width:360px;
+  width:100%;
+  background:#070016;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 0 40px #9333ea66;
+}
+.card h2{text-align:center;margin-bottom:18px}
+input,textarea{
+  width:100%;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:12px;
+  border:1px solid #3b82f6;
+  background:#0b0020;
+  color:#fff;
+}
+textarea{height:100px;resize:none}
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#22d3ee,#3b82f6);
+  font-weight:700;
+  cursor:pointer;
+}
+.hide{display:none}
+.flex{display:flex;gap:12px}
+.select{
+  flex:1;
+  background:#0b0020;
+  border:1px solid #8b5cf6;
+  border-radius:14px;
+  padding:18px;
+  text-align:center;
+  cursor:pointer;
+}
+.select:hover{box-shadow:0 0 15px #8b5cf6}
+@media(max-width:900px){
+  .wrapper{flex-direction:column;text-align:center}
+  .logo{font-size:56px}
+}

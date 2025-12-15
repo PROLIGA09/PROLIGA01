@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROLIGA</title>
+
+<link rel="stylesheet" href="./CSS/style.css">
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <div class="left">
+    <div class="logo">
+      <span class="pro">PRO</span>
+      <span class="liga">LIGA</span>
+    </div>
+    <div class="subtitle">Cybersport va IT platformasi</div>
+  </div>
+
+  <div class="card">
+
+    <!-- PAGE 1 -->
+    <div id="page1">
+      <h2>Ro‘yxatdan o‘tish</h2>
+      <input id="ism" placeholder="Ism">
+      <input id="fam" placeholder="Familiya">
+      <input id="sinf" placeholder="Sinf">
+      <input id="harf" placeholder="Sinf harfi">
+      <button onclick="nextPage()">Davom etish</button>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div id="page2" class="hide">
+      <h2>Bo‘lim tanlang</h2>
+      <div class="flex">
+        <div class="select" onclick="openForm('Cybersport')">Cybersport</div>
+        <div class="select" onclick="openForm('IT')">IT</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div id="page3" class="hide">
+      <h2 id="bolimTitle"></h2>
+      <textarea id="taklif" placeholder="Taklif yozing..."></textarea>
+      <button id="sendBtn" onclick="send()">Jo‘natish</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="./JS/app.js"></script>
+
+</body>
+</html>
