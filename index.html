@@ -4,54 +4,59 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PROLIGA</title>
-
-<link rel="stylesheet" href="./CSS/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="wrapper">
-
-  <div class="left">
-    <div class="logo">
-      <span class="pro">PRO</span>
-      <span class="liga">LIGA</span>
-    </div>
-    <div class="subtitle">Cybersport va IT platformasi.</div>
+<header>
+  <div class="logo">PROLIGA</div>
+  <div class="menu" id="menu">
+    <button onclick="openModal('login')">Kirish</button>
+    <button onclick="openModal('register')">Ro‘yxatdan o‘tish</button>
   </div>
+  <div id="welcome-area" style="display:flex;align-items:center;gap:10px;">
+    <div id="welcome-msg" style="display:none;font-size:16px;color:#0ff;"></div>
+    <button id="confirm-class-btn" onclick="confirmClass()">Sinfni tasdiqlash</button>
+  </div>
+</header>
 
-  <div class="card">
+<div class="banner">
+  <h2>PROLIGA PLATFORMASI</h2>
+  <p>IT va Cybersport yo‘nalishlari uchun zamonaviy tizim</p>
+</div>
 
-    <!-- PAGE 1 -->
-    <div id="page1">
-      <h2>Ro‘yxatdan o‘tish</h2>
-      <input id="ism" placeholder="Ism">
-      <input id="fam" placeholder="Familiya">
-      <input id="sinf" placeholder="Sinf">
-      <input id="harf" placeholder="Sinf harfi">
-      <button onclick="nextPage()">Davom etish</button>
+<div class="section">
+  <h3>Bo‘limlar</h3>
+  <div class="cards">
+    <div class="card it" id="it-card" onclick="selectSection('it')">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+      <h4>IT BO‘LIMI</h4>
     </div>
-
-    <!-- PAGE 2 -->
-    <div id="page2" class="hide">
-      <h2>Bo‘lim tanlang</h2>
-      <div class="flex">
-        <div class="select" onclick="openForm('Cybersport')">Cybersport</div>
-        <div class="select" onclick="openForm('IT')">IT</div>
-      </div>
+    <div class="card cyber" id="cyber-card" onclick="selectSection('cyber')">
+      <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+      <h4>CYBERSPORT</h4>
     </div>
-
-    <!-- PAGE 3 -->
-    <div id="page3" class="hide">
-      <h2 id="bolimTitle"></h2>
-      <textarea id="taklif" placeholder="Taklif yozing..."></textarea>
-      <button id="sendBtn" onclick="send()">Jo‘natish</button>
-    </div>
-
   </div>
 </div>
 
-<script src="./JS/app.js"></script>
+<footer>
+  <div>Main</div>
+  <div>IT</div>
+  <div>Cyber</div>
+  <div>Profile</div>
+</footer>
 
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal">
+    <h3 id="modal-title">Kirish</h3>
+    <input type="text" id="username" placeholder="Ism">
+    <input type="password" id="password" placeholder="Parol">
+    <button onclick="submitForm()">Tasdiqlash</button>
+    <p id="modal-msg"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

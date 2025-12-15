@@ -1,83 +1,33 @@
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,system-ui,sans-serif}
-body{
-  background:radial-gradient(circle at top,#2b0a4d,#060010);
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#fff;
-}
-/* LAYOUT */
-.wrapper{
-  width:95%;
-  max-width:1100px;
-  display:flex;
-  gap:40px;
-  align-items:center;
-  justify-content:space-between;
-}
-/* LOGO */
-.left{flex:1}
-.logo{
-  font-size:72px;
-  font-weight:900;
-  line-height:1;
-}
-.logo .pro{
-  display:block;
-  background:linear-gradient(90deg,#22d3ee,#3b82f6);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.logo .liga{
-  display:block;
-  background:linear-gradient(90deg,#8b5cf6,#ec4899);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.subtitle{margin-top:16px;color:#cbd5f5}
-/* FORM */
-.card{
-  max-width:360px;
-  width:100%;
-  background:#070016;
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 0 40px #9333ea66;
-}
-.card h2{text-align:center;margin-bottom:18px}
-input,textarea{
-  width:100%;
-  padding:14px;
-  margin-bottom:14px;
-  border-radius:12px;
-  border:1px solid #3b82f6;
-  background:#0b0020;
-  color:#fff;
-}
-textarea{height:100px;resize:none}
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(90deg,#22d3ee,#3b82f6);
-  font-weight:700;
-  cursor:pointer;
-}
-.hide{display:none}
-.flex{display:flex;gap:12px}
-.select{
-  flex:1;
-  background:#0b0020;
-  border:1px solid #8b5cf6;
-  border-radius:14px;
-  padding:18px;
-  text-align:center;
-  cursor:pointer;
-}
-.select:hover{box-shadow:0 0 15px #8b5cf6}
-@media(max-width:900px){
-  .wrapper{flex-direction:column;text-align:center}
-  .logo{font-size:56px}
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family: Arial,sans-serif;}
+body{background:linear-gradient(120deg,#0f2027,#203a43,#000);color:#fff;}
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;}
+.logo{font-size:22px;font-weight:bold;letter-spacing:2px;}
+.menu button{font-size:14px;margin-left:10px;cursor:pointer;padding:8px 14px;border-radius:8px;border:none;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;transition:0.3s;}
+.menu button:hover{transform:scale(1.05);}
+.banner{margin:15px;padding:25px;border-radius:16px;background:linear-gradient(120deg,#5f2cff,#00d4ff);animation:fadeIn 0.4s ease-out;}
+.banner h2{font-size:20px;margin-bottom:10px;}
+.banner p{font-size:14px;opacity:0.9;}
+.section{margin:20px 15px;}
+.section h3{margin-bottom:12px;}
+.cards{display:flex;gap:14px;}
+.card{flex:1;background:#111;border-radius:16px;padding:18px;position:relative;overflow:hidden;cursor:pointer;animation:slideUp 0.45s ease;transition:0.3s;}
+.card:hover{transform:scale(1.06);}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,0.15),transparent);left:-100%;transition:0.25s;}
+.card:hover::before{left:100%;}
+.card img{width:100%;height:90px;object-fit:cover;border-radius:12px;margin-bottom:12px;}
+.card h4{text-align:center;}
+.it{border:1px solid #00ffff;}
+.cyber{border:1px solid #ff0066;}
+footer{position:fixed;bottom:0;left:0;right:0;background:#050505;display:flex;justify-content:space-around;padding:12px 0;}
+footer div{font-size:13px;opacity:0.8;}
+.modal-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:none;justify-content:center;align-items:center;z-index:1000;animation:fadeIn 0.3s ease;}
+.modal{background:#1a1a1a;padding:30px 25px;border-radius:16px;width:320px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.5);animation:slideUp 0.3s ease;}
+.modal h3{margin-bottom:20px;font-size:22px;color:#fff;}
+.modal input{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #555;background:#222;color:#fff;font-size:14px;}
+.modal input:focus{outline:none;border-color:#5f2cff;box-shadow:0 0 8px #5f2cff;}
+.modal button{width:100%;padding:12px;margin-top:15px;border:none;border-radius:10px;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;font-size:16px;cursor:pointer;transition:0.3s;}
+.modal button:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(95,44,255,0.5);}
+#modal-msg{margin-top:12px;font-size:13px;color:#f55;}
+#confirm-class-btn{display:none;padding:6px 12px;border:none;border-radius:6px;background:linear-gradient(120deg,#5f2cff,#00d4ff);color:#fff;cursor:pointer;}
+@keyframes fadeIn{from{opacity:0; transform:translateY(20px)}to{opacity:1; transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0; transform:translateY(30px)}to{opacity:1; transform:translateY(0)}}
